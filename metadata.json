@@ -1,0 +1,6 @@
+{
+  "name": "Jyoti's Birthday | For My Moon",
+  "description": "A personal, soft, and handcrafted birthday website celebrating Jyoti with heartfelt letters, interactive cake & candles, photo memory flipbook, and guest wishes.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
