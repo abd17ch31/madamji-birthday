@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Sparkles, Heart, CheckCircle2 } from 'lucide-react';
 import { FaMoon } from 'react-icons/fa6';
 import { quizQuestions } from '../data/quizQuestions';
@@ -7,26 +7,68 @@ import { triggerCandleConfetti } from '../utils/confetti';
 interface SectionQuizOverlayProps {
   isOpen: boolean;
   onComplete: () => void;
+  inline?: boolean;
 }
 
-export const SectionQuizOverlay: React.FC<SectionQuizOverlayProps> = ({ isOpen, onComplete }) => {
+export const SectionQuizOverlay: React.FC<SectionQuizOverlayProps> = ({ isOpen, onComplete, inline = false }) => {
   const [currentIdx, setCurrentIdx] = useState(0);
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [isWrong, setIsWrong] = useState(false);
   const [attempts, setAttempts] = useState(1);
   const [isSolved, setIsSolved] = useState(false);
+  const [isActive, setIsActive] = useState(!inline);
+  const quizSectionRef = useRef<HTMLDivElement>(null);
 
-  // Lock body scroll while quiz is open
+  // Let the visitor scroll from the welcome section to the quiz, then stop there.
   useEffect(() => {
-    if (isOpen && !isSolved) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
+    if (!isOpen || !inline || !quizSectionRef.current) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsActive(true);
+          quizSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      },
+      { threshold: [0.1] }
+    );
+    observer.observe(quizSectionRef.current);
+    return () => observer.disconnect();
+  }, [isOpen, inline]);
+
+  // Keep the page anchored to the question gate until every question is answered.
+  useEffect(() => {
+    if (!isOpen) return;
+
+    // Reset the gate whenever it is opened so it cannot be bypassed on a later visit.
+    setCurrentIdx(0);
+    setSelectedOption(null);
+    setIsWrong(false);
+    setAttempts(1);
+    setIsSolved(false);
+    setIsActive(!inline);
+
+    if (!inline) {
+      return;
     }
+  }, [isOpen, inline]);
+
+  useEffect(() => {
+    if (!isOpen || !isActive || isSolved) return;
+
+    const previousBodyOverflow = document.body.style.overflow;
+    const previousDocumentOverflow = document.documentElement.style.overflow;
+    const previousBodyOverscroll = document.body.style.overscrollBehavior;
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.overscrollBehavior = 'none';
+
     return () => {
-      document.body.style.overflow = '';
+      document.body.style.overflow = previousBodyOverflow;
+      document.documentElement.style.overflow = previousDocumentOverflow;
+      document.body.style.overscrollBehavior = previousBodyOverscroll;
     };
-  }, [isOpen, isSolved]);
+  }, [isOpen, isActive, isSolved]);
 
   if (!isOpen) return null;
 
@@ -63,7 +105,15 @@ export const SectionQuizOverlay: React.FC<SectionQuizOverlayProps> = ({ isOpen, 
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#642825]/40 backdrop-blur-md transition-opacity duration-300">
+    <div
+      ref={quizSectionRef}
+      className={inline
+        ? 'relative z-10 flex min-h-[100dvh] items-center justify-center px-4 py-12 bg-[#FAD9E0] overscroll-none'
+        : 'fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#642825]/40 backdrop-blur-md transition-opacity duration-300 overscroll-none'}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="quiz-title"
+    >
       <div
         className={`relative w-full max-w-lg bg-[#FFF9FA] rounded-3xl p-6 sm:p-8 shadow-[0_20px_50px_rgba(100,40,37,0.3)] border-2 border-[#FFB3C6]/60 transition-transform duration-300 ${
           isWrong ? 'animate-wiggle' : ''
@@ -93,7 +143,7 @@ export const SectionQuizOverlay: React.FC<SectionQuizOverlayProps> = ({ isOpen, 
 
         {/* Question Text */}
         <div className="text-center mb-6">
-          <h2 className="font-caveat text-3xl sm:text-4xl font-bold text-[#642825] leading-tight mb-2">
+          <h2 id="quiz-title" className="font-caveat text-3xl sm:text-4xl font-bold text-[#642825] leading-tight mb-2">
             {currentQ.question}
           </h2>
           {currentQ.hint && (

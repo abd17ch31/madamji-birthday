@@ -14,8 +14,7 @@ import { SectionClosing } from './components/SectionClosing';
 import { AdminPanel } from './components/AdminPanel';
 
 export default function App() {
-  const [showQuiz, setShowQuiz] = useState(false);
-  const [hasEntered, setHasEntered] = useState(false);
+  const [showQuiz, setShowQuiz] = useState(true);
   const [isAdminView, setIsAdminView] = useState(false);
 
   // Check URL path or hash for /admin
@@ -37,11 +36,6 @@ export default function App() {
       window.removeEventListener('hashchange', checkAdminRoute);
     };
   }, []);
-
-  const handleEnterWelcome = () => {
-    setHasEntered(true);
-    setShowQuiz(true);
-  };
 
   const handleQuizComplete = () => {
     setShowQuiz(false);
@@ -79,11 +73,12 @@ export default function App() {
         ) : (
           <main className="relative z-10 w-full overflow-hidden">
             {/* Section 1: Welcome */}
-            <SectionWelcome onEnter={handleEnterWelcome} />
+            <SectionWelcome />
 
-            {/* Section 2: Quiz Gate (Full-Screen Fixed Overlay) */}
+            {/* Section 2: Quiz Gate (scroll ends here until all questions are answered) */}
             <SectionQuizOverlay
               isOpen={showQuiz}
+              inline
               onComplete={handleQuizComplete}
             />
 

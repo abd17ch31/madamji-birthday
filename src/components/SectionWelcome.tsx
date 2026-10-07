@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
-import { Sparkles, Heart } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 import { FaMoon } from 'react-icons/fa6';
 import { useImages } from '../context/ImageContext';
 
 interface SectionWelcomeProps {
-  onEnter: () => void;
 }
 
-export const SectionWelcome: React.FC<SectionWelcomeProps> = ({ onEnter }) => {
+export const SectionWelcome: React.FC<SectionWelcomeProps> = () => {
   const { getImageUrl } = useImages();
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
 
@@ -89,20 +88,8 @@ export const SectionWelcome: React.FC<SectionWelcomeProps> = ({ onEnter }) => {
         </div>
       </div>
 
-      {/* Tap-to-Enter Interaction Button (Also acts as Audio Permission Gesture) */}
-      <div className="relative z-10">
-        <button
-          onClick={onEnter}
-          className="group relative inline-flex items-center gap-3 px-8 py-4 bg-[#FFB3C6] hover:bg-[#ffa2b9] active:scale-95 text-[#642825] font-quicksand font-bold text-base sm:text-lg rounded-full shadow-[0_8px_20px_-4px_rgba(255,179,198,0.7)] hover:shadow-[0_12px_28px_-4px_rgba(255,179,198,0.85)] transition-all duration-200 border border-white/40 cursor-pointer"
-        >
-          <Heart className="w-5 h-5 text-[#642825] fill-[#642825] group-hover:scale-115 transition-transform duration-200" />
-          <span>Open Your Birthday Letter</span>
-          <Sparkles className="w-4 h-4 text-[#642825] opacity-70 group-hover:rotate-12 transition-transform duration-200" />
-        </button>
-      </div>
-
-      <p className="relative z-10 mt-3 text-xs text-[#B85D59]/70 font-quicksand font-medium text-center">
-        Tap to step inside & unlock your special surprises
+      <p className="relative z-10 mt-1 text-sm text-[#B85D59]/80 font-quicksand font-semibold text-center">
+        Answer the questions to unlock your birthday surprises
       </p>
     </section>
   );

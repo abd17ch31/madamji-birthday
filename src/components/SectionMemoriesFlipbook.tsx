@@ -3,37 +3,34 @@ import HTMLFlipBook from 'react-pageflip';
 import { useImages } from '../context/ImageContext';
 import { PlacedSticker } from '../types';
 import {
-  Heart,
   Sparkles,
-  Star,
-  Moon,
   ChevronLeft,
   ChevronRight,
-  GripHorizontal,
-  Smile,
   Plus
 } from 'lucide-react';
 import {
-  FaHeart,
-  FaHeartPulse,
-  FaStar,
   FaMoon,
-  FaCat,
-  FaFeatherPointed,
-  FaWandMagicSparkles,
-  FaSeedling,
 } from 'react-icons/fa6';
+import cat1 from '../assets/cat stickers/cat 1.png';
+import cat2 from '../assets/cat stickers/cat 2.png';
+import cat3 from '../assets/cat stickers/cat 3.png';
+import cat4 from '../assets/cat stickers/cat 4.png';
+import cat5 from '../assets/cat stickers/cat 5.png';
+import cat6 from '../assets/cat stickers/cat 6.png';
+import cat7 from '../assets/cat stickers/cat 7.png';
+import cat8 from '../assets/cat stickers/cat 8.png';
+import cat9 from '../assets/cat stickers/cat 9.png';
 
-// Available sticker definitions from lucide-react & react-icons only
 const STICKER_PALETTE = [
-  { id: 'heart_1', category: 'hearts' as const, label: 'Heart', icon: FaHeart, color: '#FFB3C6' },
-  { id: 'heart_2', category: 'hearts' as const, label: 'Pulse', icon: FaHeartPulse, color: '#E85D75' },
-  { id: 'star_1', category: 'stars' as const, label: 'Star', icon: FaStar, color: '#FFD166' },
-  { id: 'sparkle_1', category: 'sparkles' as const, label: 'Sparkle', icon: Sparkles, color: '#E8B86D' },
-  { id: 'moon_1', category: 'moon' as const, label: 'Moon', icon: FaMoon, color: '#E8B86D' },
-  { id: 'flower_1', category: 'flowers' as const, label: 'Flora', icon: FaSeedling, color: '#81C784' },
-  { id: 'cat_1', category: 'cats' as const, label: 'Cat', icon: FaCat, color: '#B85D59' },
-  { id: 'magic_1', category: 'sparkles' as const, label: 'Wand', icon: FaWandMagicSparkles, color: '#BA68C8' },
+  { id: 'cat_1', category: 'cats' as const, label: 'Cat 1', image: cat1 },
+  { id: 'cat_2', category: 'cats' as const, label: 'Cat 2', image: cat2 },
+  { id: 'cat_3', category: 'cats' as const, label: 'Cat 3', image: cat3 },
+  { id: 'cat_4', category: 'cats' as const, label: 'Cat 4', image: cat4 },
+  { id: 'cat_5', category: 'cats' as const, label: 'Cat 5', image: cat5 },
+  { id: 'cat_6', category: 'cats' as const, label: 'Cat 6', image: cat6 },
+  { id: 'cat_7', category: 'cats' as const, label: 'Cat 7', image: cat7 },
+  { id: 'cat_8', category: 'cats' as const, label: 'Cat 8', image: cat8 },
+  { id: 'cat_9', category: 'cats' as const, label: 'Cat 9', image: cat9 },
 ];
 
 // Helper component for single page wrapper with forwardRef as required by react-pageflip
@@ -80,12 +77,12 @@ export const SectionMemoriesFlipbook: React.FC = () => {
 
   // Initial placed stickers with positions on pages
   const [stickers, setStickers] = useState<PlacedSticker[]>([
-    { id: 's1', type: 'moon_1', category: 'moon', x: 76, y: 14, rotation: 12, scale: 1.2, pageIndex: 0 },
-    { id: 's2', type: 'sparkle_1', category: 'sparkles', x: 18, y: 80, rotation: -8, scale: 1, pageIndex: 0 },
-    { id: 's3', type: 'heart_1', category: 'hearts', x: 80, y: 22, rotation: 15, scale: 1.1, pageIndex: 1 },
-    { id: 's4', type: 'cat_1', category: 'cats', x: 74, y: 78, rotation: -5, scale: 1, pageIndex: 2 },
-    { id: 's5', type: 'star_1', category: 'stars', x: 18, y: 16, rotation: 8, scale: 1.2, pageIndex: 3 },
-    { id: 's6', type: 'heart_2', category: 'hearts', x: 78, y: 82, rotation: -12, scale: 1.1, pageIndex: 4 },
+    { id: 's1', type: 'cat_1', category: 'cats', x: 76, y: 14, rotation: 12, scale: 1.2, pageIndex: 0 },
+    { id: 's2', type: 'cat_2', category: 'cats', x: 18, y: 80, rotation: -8, scale: 1, pageIndex: 0 },
+    { id: 's3', type: 'cat_3', category: 'cats', x: 80, y: 22, rotation: 15, scale: 1.1, pageIndex: 1 },
+    { id: 's4', type: 'cat_4', category: 'cats', x: 74, y: 78, rotation: -5, scale: 1, pageIndex: 2 },
+    { id: 's5', type: 'cat_5', category: 'cats', x: 18, y: 16, rotation: 8, scale: 1.2, pageIndex: 3 },
+    { id: 's6', type: 'cat_6', category: 'cats', x: 78, y: 82, rotation: -12, scale: 1.1, pageIndex: 4 },
   ]);
 
   // Dragging state with 200ms long-press resolution
@@ -203,7 +200,6 @@ export const SectionMemoriesFlipbook: React.FC = () => {
   // Render a placed sticker
   const renderStickerItem = (s: PlacedSticker) => {
     const paletteItem = STICKER_PALETTE.find(p => p.id === s.type) || STICKER_PALETTE[0];
-    const IconComponent = paletteItem.icon;
     const isWiggling = wigglingStickerId === s.id;
     const isActiveDrag = activeDragStickerId === s.id;
 
@@ -231,9 +227,11 @@ export const SectionMemoriesFlipbook: React.FC = () => {
             isActiveDrag ? 'ring-2 ring-[#FFB3C6]' : ''
           }`}
         >
-          <IconComponent
-            className="w-5 h-5 transition-colors"
-            style={{ color: paletteItem.color }}
+          <img
+            src={paletteItem.image}
+            alt={`${paletteItem.label} sticker`}
+            draggable={false}
+            className="w-12 h-12 object-contain drop-shadow-sm transition-transform"
           />
 
           {/* Fallback visible grip dot in corner for instant drag */}
@@ -488,12 +486,12 @@ export const SectionMemoriesFlipbook: React.FC = () => {
         </div>
       </div>
 
-      {/* Draggable Sticker Palette Tray (Hearts, Stars, Moon, Flowers, Cats, Sparkles) */}
+      {/* Draggable Cat Sticker Palette Tray */}
       <div className="mt-8 bg-white/90 rounded-2xl p-4 max-w-xl mx-auto border border-[#FFCCD5] shadow-sm">
         <div className="flex items-center justify-between mb-3 px-1">
           <div className="flex items-center gap-1.5 text-xs font-quicksand font-bold text-[#642825]">
             <Sparkles className="w-4 h-4 text-[#E8B86D]" />
-            <span>Sticker Tray · Tap to stick onto this page</span>
+            <span>Cat Sticker Tray · Tap to stick onto this page</span>
           </div>
           <span className="text-[11px] text-[#B85D59]/70 font-quicksand">
             Hold 200ms to drag
@@ -502,7 +500,6 @@ export const SectionMemoriesFlipbook: React.FC = () => {
 
         <div className="flex flex-wrap items-center justify-center gap-2">
           {STICKER_PALETTE.map(p => {
-            const Icon = p.icon;
             return (
               <button
                 key={p.id}
@@ -510,7 +507,7 @@ export const SectionMemoriesFlipbook: React.FC = () => {
                 title={`Add ${p.label} sticker to page`}
                 className="flex items-center gap-1.5 px-3 py-1.5 bg-[#FFF8F9] hover:bg-[#FFB3C6]/30 active:scale-95 rounded-xl border border-[#FAD9E0] text-xs font-quicksand font-semibold text-[#642825] transition-all cursor-pointer shadow-2xs"
               >
-                <Icon className="w-4 h-4" style={{ color: p.color }} />
+                <img src={p.image} alt={`${p.label} sticker`} className="w-8 h-8 object-contain" />
                 <span>{p.label}</span>
                 <Plus className="w-3 h-3 text-[#B85D59]/60" />
               </button>
