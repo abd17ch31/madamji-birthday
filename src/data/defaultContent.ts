@@ -77,30 +77,28 @@ export const defaultLetters = {
   roleSection: {
     heading: "The person who shapes my world",
     paragraphs: [
-      "Whenever the world gets noisy, you are the voice of calm that brings me right back to earth. You have this rare, quiet wisdom — never telling me what I want to hear just to make things easy, but gently pointing me toward who I truly want to be.",
-      "You've been my advisor in the moments where I couldn't see past the fog, my sanity check when I was overthinking, and my favorite partner in figuring life out step by step.",
-      "Having you by my side has changed the way I think, the way I listen, and the way I care. You don't just share my days; you shape my entire journey."
+      "You have always been there for me, no matter what happened. Whenever I had to make a tough decision in life, I always looked towards you, and you were always there to support me and stand by me. You have supported me through so many things, and I honestly don’t know what I would have done without you. I promise I’ll always be thankful for all the support you’ve given me, and I’ll always be grateful to have you by my side."
     ]
   },
   beautySection: {
     heading: "In all your gentle beauty",
     paragraphs: [
-      "There is a warmth in your eyes that makes any room feel like home. It's the way your face lights up right before you burst into that crinkly-eyed laughter, and the quiet grace you carry without ever trying to prove anything to anyone.",
-      "I love the subtle details: the soft tilt of your head when you're deeply focused, the effortless glow of your skin in the afternoon light, and how even on ordinary, tired days, you are the most captivating person in my sight.",
-      "Your beauty is honest, tender, and uniquely yours."
+      "As beautiful as you are on the outside, your heart is so much more beautiful. I love the way you care for animals, notice the little things, and always have a soft spot for things and people that most would simply overlook. In a world where so many people pretend to be someone they’re not, you are one of the few people who feels completely real. You have this kindness in you that never feels forced, and that’s what makes you even more beautiful to me.",
+      "It’s not just your face that makes you special. It’s the heart behind it, the way you care, the little things you do without even realizing, and the person you are when no one is watching."
+
     ]
   },
   loveSection: {
-    heading: "To my favorite person on earth",
-    dateStamp: "On your birthday, and every day that follows",
-    paragraphs: [
-      "Happy Birthday, my Jyoti. If there is one thing I know with complete certainty, it is that meeting you rewired the meaning of peace for me.",
-      "Loving you is not complicated or grandiloquent. It lives in the small, sacred corners of our ordinary days: sharing quiet morning thoughts, listening to your stories about work and friends, feeling your head rest against my shoulder after a long day, and catching each other's glances across a crowded room.",
-      "You make me feel safe to be vulnerable, ambitious to grow, and endlessly grateful just to exist at the same time as you. On this birthday, I want to promise you patience through the uncertain days, deep appreciation for the quiet ones, and unwavering celebration of all the joy, dreams, and milestones ahead.",
-      "You are my moon — gentle, steady, and lighting up my whole sky.",
-      "Happy Birthday, Jyoti. I love you endlessly."
-    ],
-    signature: "Always yours, with all my heart ❤️"
-  },
-  closingText: "May this year be as sweet, gentle, and radiant as you are to everyone lucky enough to know you."
+  heading: "To my favorite person on earth",
+  dateStamp: "On your birthday, and every day that follows",
+  paragraphs: [
+    "Happy Birthday, my Jyoti. If there is one thing I feel every time I look at you, it is how proud I am of the person you have become. I’m proud of your heart, your kindness, the way you care for others, and even the little things you do that you probably don’t think twice about.",
+    "I’m proud of you for everything you’ve faced, for the way you keep going even when things aren’t easy, and for all the dreams you carry in your heart. Watching you grow, learn, and become a better version of yourself makes me genuinely happy. I hope you always know that I’ll be there to celebrate your little wins, your biggest achievements, and everything in between.",
+    "You deserve all the happiness, love, peace, and success in the world. I hope this year brings you closer to everything you dream about. Never forget how special you are and how many reasons there are to be proud of you.",
+    "I’ll always be proud to call you mine, and I’ll always be cheering for you, no matter where life takes us.",
+    "Happy Birthday, Jyoti. ❤️ I love you, and I’m so, so proud of you."
+  ],
+  signature: "Always yours, with all my heart ❤️"
+},
+closingText: "May this year bring you all the happiness, love, and success you deserve, and may you always have reasons to smile and be proud of yourself."
 };

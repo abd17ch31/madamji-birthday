@@ -40,7 +40,7 @@ export const SectionWelcome: React.FC<SectionWelcomeProps> = () => {
         </div>
 
         <h1 className="font-caveat text-5xl sm:text-6xl md:text-7xl font-bold text-[#642825] tracking-tight mb-2">
-          Happy Birthday, Jyoti
+          Happy Birthday in advance, Chikko Ji
         </h1>
 
         <p className="font-quicksand text-base sm:text-lg text-[#B85D59] font-medium max-w-sm leading-relaxed">
