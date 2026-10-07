@@ -52,8 +52,10 @@ export const SectionMemoriesFlipbook: React.FC = () => {
   const { getImageUrl } = useImages();
   const bookRef = useRef<any>(null);
   const [currentPage, setCurrentPage] = useState(0);
-  const [totalPages, setTotalPages] = useState(6);
   const [wigglingStickerId, setWigglingStickerId] = useState<string | null>(null);
+
+  // Sticker interaction active flag (disables page flipping during any sticker action)
+  const [isStickerActive, setIsStickerActive] = useState(false);
 
   // Responsive dimensions for HTMLFlipBook
   const [bookDimensions, setBookDimensions] = useState({ width: 340, height: 480 });
@@ -133,6 +135,8 @@ export const SectionMemoriesFlipbook: React.FC = () => {
   // Long-press or Grip-dot drag initiation
   const startStickerDrag = (e: React.MouseEvent | React.TouchEvent, sticker: PlacedSticker, isGripDot = false) => {
     e.stopPropagation();
+    setIsStickerActive(true);
+
     const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
     const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
 
@@ -195,6 +199,7 @@ export const SectionMemoriesFlipbook: React.FC = () => {
     }
     isDraggingRef.current = false;
     setActiveDragStickerId(null);
+    setIsStickerActive(false);
   };
 
   // Render a placed sticker
@@ -208,6 +213,12 @@ export const SectionMemoriesFlipbook: React.FC = () => {
         key={s.id}
         onMouseDown={e => startStickerDrag(e, s)}
         onTouchStart={e => startStickerDrag(e, s)}
+        onMouseEnter={() => setIsStickerActive(true)}
+        onMouseLeave={() => {
+          if (!isDraggingRef.current) {
+            setIsStickerActive(false);
+          }
+        }}
         onClick={e => {
           e.stopPropagation();
           triggerStickerWiggle(s.id);
@@ -217,6 +228,7 @@ export const SectionMemoriesFlipbook: React.FC = () => {
           top: `${s.y}%`,
           transform: `translate(-50%, -50%) rotate(${s.rotation}deg) scale(${isActiveDrag ? s.scale * 1.25 : s.scale})`,
           zIndex: isActiveDrag ? 40 : 25,
+          touchAction: 'none',
         }}
         className={`absolute select-none cursor-grab active:cursor-grabbing group transition-transform ${
           isWiggling ? 'animate-wiggle' : ''
@@ -231,7 +243,7 @@ export const SectionMemoriesFlipbook: React.FC = () => {
             src={paletteItem.image}
             alt={`${paletteItem.label} sticker`}
             draggable={false}
-            className="w-12 h-12 object-contain drop-shadow-sm transition-transform"
+            className="w-12 h-12 object-contain drop-shadow-sm transition-transform pointer-events-none select-none"
           />
 
           {/* Fallback visible grip dot in corner for instant drag */}
@@ -239,9 +251,9 @@ export const SectionMemoriesFlipbook: React.FC = () => {
             onMouseDown={e => startStickerDrag(e, s, true)}
             onTouchStart={e => startStickerDrag(e, s, true)}
             title="Drag sticker"
-            className="absolute -bottom-1 -right-1 w-3.5 h-3.5 bg-[#B85D59] rounded-full border border-white flex items-center justify-center opacity-70 group-hover:opacity-100 shadow-xs cursor-move"
+            className="absolute -bottom-1 -right-1 w-4 h-4 bg-[#B85D59] rounded-full border border-white flex items-center justify-center opacity-80 group-hover:opacity-100 shadow-xs cursor-move z-10"
           >
-            <div className="w-1.5 h-1.5 bg-white rounded-full" />
+            <div className="w-1.5 h-1.5 bg-white rounded-full pointer-events-none" />
           </div>
         </div>
       </div>
@@ -276,7 +288,7 @@ export const SectionMemoriesFlipbook: React.FC = () => {
         </h2>
 
         <p className="font-quicksand text-xs sm:text-sm text-[#B85D59] font-medium max-w-md mx-auto">
-          Swipe or drag the page corners to flip through our memories. Long-press stickers (~200ms) or use the grip dot to move them! 🌸
+          Swipe or drag the page corners to flip through our memories. Drag stickers using the grip dot or hold to move them! 🌸
         </p>
       </div>
 
@@ -296,6 +308,7 @@ export const SectionMemoriesFlipbook: React.FC = () => {
             maxShadowOpacity={0.4}
             showCover={true}
             mobileScrollSupport={true}
+            useMouseEvents={!isStickerActive}
             onFlip={handlePageFlip}
             className="shadow-2xl rounded-2xl overflow-hidden"
           >
@@ -494,7 +507,7 @@ export const SectionMemoriesFlipbook: React.FC = () => {
             <span>Cat Sticker Tray · Tap to stick onto this page</span>
           </div>
           <span className="text-[11px] text-[#B85D59]/70 font-quicksand">
-            Hold 200ms to drag
+            Drag with grip dot or long-press
           </span>
         </div>
 
