@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
-import { Heart, Sparkles, Lock } from 'lucide-react';
+import { Heart, Sparkles } from 'lucide-react';
 import { FaMoon } from 'react-icons/fa6';
 import { defaultLetters } from '../data/defaultContent';
 import { triggerCandleConfetti } from '../utils/confetti';
 
-interface SectionClosingProps {
-  onOpenAdmin: () => void;
-}
-
-export const SectionClosing: React.FC<SectionClosingProps> = ({ onOpenAdmin }) => {
+export const SectionClosing: React.FC = () => {
   const [pressedCount, setPressedCount] = useState(0);
 
   const handleHeartClick = () => {
@@ -54,14 +50,6 @@ export const SectionClosing: React.FC<SectionClosingProps> = ({ onOpenAdmin }) =
           <p className="text-xs text-[#B85D59]/70 font-quicksand font-medium">
             Handcrafted with love for Jyoti's Birthday · Forever My Moon 🌙
           </p>
-
-          <button
-            onClick={onOpenAdmin}
-            className="text-[11px] text-[#B85D59]/50 hover:text-[#642825] flex items-center gap-1 font-quicksand font-medium transition-colors mt-2 cursor-pointer"
-          >
-            <Lock className="w-3 h-3" />
-            <span>Admin Keepsake Panel</span>
-          </button>
         </div>
       </div>
     </footer>
